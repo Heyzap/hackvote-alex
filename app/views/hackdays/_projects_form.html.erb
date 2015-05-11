@@ -1,0 +1,13 @@
+<%= form_for(@project) do |f| %>
+  <%= render "shared/error_messages", :object => f.object%>
+
+  <%= hidden_field_tag :hackday_id, @hackday.id %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-field"%>
+
+  <%= f.label :creators %>
+  <%= f.text_field :creators, class: "form-field" %>
+
+  <%= f.submit "Add project" %>
+<% end %>

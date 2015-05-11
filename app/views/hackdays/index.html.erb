@@ -1,0 +1,14 @@
+<h1>New Hackday</h1>
+<%= form_for(@hackday) do |f| %>
+  <%= render "shared/error_messages", :object => f.object %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit "Create hackday!" %>
+<% end %>
+
+<h1>Hackdays</h1>
+<ul>
+  <% @hackdays.each do |hackday| %>
+    <li><%= link_to hackday.name, hackday_path(hackday) %></li>
+  <% end %>
+</ul>

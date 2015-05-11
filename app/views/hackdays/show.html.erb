@@ -1,0 +1,16 @@
+<h1><%= @hackday.name %></h1>
+
+<% if @hackday.votable %>
+  <%= form_for(@hackday) do |f|%>
+    <%= f.submit "Close voting" %>
+  <% end %>
+  <h2>Add new projects</h2>
+  <div id="projects-form">
+    <%= render "hackdays/projects_form" %>
+  </div>
+<% end %>
+
+<h2>Projects</h2>
+<div id="projects-list">
+  <%= render "hackdays/project_list", :hackday => @hackday %>
+</div>
