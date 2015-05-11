@@ -1,0 +1,7 @@
+<% # refresh the projects list %>
+$("#projects-list").html("<%= escape_javascript(render 'hackdays/project_list', :hackday => @hackday) %>")
+
+<% # clear form fields %>
+$(".form-field").val("")
+
+<%= render 'projects/update_errors' %>
