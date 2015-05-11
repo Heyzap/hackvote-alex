@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   MAX_VOTES = 3
 
   def create
-    @hackday = Hackday.find(params[:hackday_id])
+    @hackday = Hackday.find_by_id(params[:hackday_id])
     @project = @hackday.projects.build(filter_params)
     if @project.save
       redirect_to hackday_path(@hackday)
@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = Project.find_by_id(params[:id])
     @hackday = @project.hackday
     votes = session[:"votes_#{@hackday.id}"].to_i
     if votes < MAX_VOTES

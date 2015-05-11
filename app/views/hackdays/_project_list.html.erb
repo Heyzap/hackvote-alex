@@ -1,10 +1,14 @@
-<% if hackday.votable %>
-  <ul>
-    <% hackday.projects.each do |proj| %>
-      <li>
-        <span class="project-details">
-          <b><%= proj.name %></b> (by <%= proj.creators %>)
-        </span>
+<% projs = hackday.projects %>
+<% if !hackday.votable %>
+  <% projs = projs.sort_by { |proj| -proj.votes } %>
+<% end %>
+<ul>
+  <% projs.each do |proj| %>
+    <li>
+      <span class="project-details">
+        <b><%= proj.name %></b> (by <%= proj.creators %>)
+      </span>
+      <% if hackday.votable %>
         <% if session[:"votes_#{hackday.id}"].to_i < ProjectsController::MAX_VOTES %>
           <span class="project-votes">
             <%= form_for(proj) do |f| %>
@@ -12,21 +16,11 @@
             <% end %>
           </span>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <ul>
-    <% projs = hackday.projects.sort_by { |proj| -proj.votes } %>
-    <% projs.each do |proj| %>
-      <li>
-        <span class="project-details">
-          <b><%= proj.name %></b> (by <%= proj.creators %>)
-        </span>
+      <% else %>
         <span class="project-votes">
           -- <%= proj.votes %> votes
         </span>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

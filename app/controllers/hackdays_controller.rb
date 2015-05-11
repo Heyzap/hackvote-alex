@@ -7,7 +7,7 @@ class HackdaysController < ApplicationController
 
   def show
     @hackday = Hackday.find_by_id(params[:id].to_i)
-    @project = @hackday.projects.build
+    @project = Project.new
   end
 
   def create
@@ -21,7 +21,7 @@ class HackdaysController < ApplicationController
   end
 
   def update
-    @hackday = Hackday.find(params[:id])
+    @hackday = Hackday.find_by_id(params[:id])
     @hackday.close_for_voting
     @hackday.save
     redirect_to hackday_path(@hackday)
