@@ -6,13 +6,13 @@ class HackdaysController < ApplicationController
   end
 
   def show
-    @hackday = Hackday.find(params[:id])
+    @hackday = Hackday.find_by_id(params[:id].to_i)
     @project = @hackday.projects.build
   end
 
   def create
-    @hackday = Hackday.new(:name => params[:hackday][:name])
-    if @hackday.save
+    @hackday = Hackday.create(:name => params[:hackday][:name])
+    if @hackday.valid?
       redirect_to hackday_path(@hackday)
     else
       @hackdays = Hackday.all
